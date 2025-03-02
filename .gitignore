@@ -1,0 +1,21 @@
+# Gradle 관련 폴더 및 파일 무시
+.gradle/
+build/
+out/
+
+# IntelliJ IDEA 관련 파일 무시
+.idea/
+*.iml
+
+# 허용할 폴더 및 파일
+!/src/**
+!/README.md
+
+# 기타 무시할 파일들
+*.log
+*.tmp
+.DS_Store
+
+# Allow src folder
+!/src/**
+!/README.md
