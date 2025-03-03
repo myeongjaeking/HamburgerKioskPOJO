@@ -34,7 +34,7 @@ public class LoadFile {
     }
 
     private File loadFile() {
-        final String FILEPATH = "src/main/resources/products2.md";
+        final String FILEPATH = "src/main/resources/products.md";
         return new File(FILEPATH);
     }
 

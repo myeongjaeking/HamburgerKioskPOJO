@@ -20,7 +20,7 @@ public class Order {
 
     private void intro() {
         System.out.println("\n=================================");
-        System.out.println("안녕하세요. " + rootDto.consumer().getName() + "님 햄버거 가게 입니다.");
+        System.out.println("안녕하세요. " + rootDto.consumer().getId() + "님 햄버거 가게 입니다.");
         System.out.println("현재 접속된 관리자는 " + rootDto.manager().getName() + "입니다.\n");
     }
 

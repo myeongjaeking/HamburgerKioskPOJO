@@ -15,15 +15,15 @@ public class CreateConsumer implements RootProcess {
         String input = Input.nextLine();
 
         try {
-            String[] nameAndMoney = input.split(Separator.REST.getSign());
+            String[] idAndMoney = input.split(Separator.REST.getSign());
 
-            ConsumerValidator.createValidation(nameAndMoney);
+            ConsumerValidator.createValidation(idAndMoney);
 
-            String name = nameAndMoney[0].trim();
-            int money = Integer.parseInt(nameAndMoney[1].trim());
+            int id = Integer.parseInt(idAndMoney[0].trim());
+            int money = Integer.parseInt(idAndMoney[1].trim());
 
             Consumer consumer = rootDto.consumer();
-            consumer.create(name, money);
+            consumer.create(id, money);
         } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
         }

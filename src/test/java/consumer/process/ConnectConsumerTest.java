@@ -21,7 +21,7 @@ class ConnectConsumerTest {
     @BeforeEach
     void setUp() {
         consumer = new Consumer();
-        consumer.create("회원", 10000);
+        consumer.create(1, 10000);
 
         manager = new Manager();
         manager.create("관리자1", 10000);
@@ -38,7 +38,7 @@ class ConnectConsumerTest {
     @DisplayName("정상적인 입력이면 회원 접속에 성공한다.")
     void testSuccessConnectConsumer() {
         manager.connect();
-        String input = "회원";
+        String input = "1";
 
         prepare(input);
 
@@ -49,7 +49,7 @@ class ConnectConsumerTest {
     @DisplayName("존재하지 않는 회원 이름으로 접속 시도하면 에러를 발생시킨다.")
     void testConnectNotExistentConsumer() {
         manager.connect();
-        String input = "회원2";
+        String input = "2";
 
         assertThatThrownBy(() -> prepare(input))
                 .isInstanceOf(IllegalArgumentException.class)
@@ -60,7 +60,7 @@ class ConnectConsumerTest {
     @DisplayName("이미 접속한 상태에서 다시 접속 시도하면 에러를 발생시킨다.")
     void testConnectAlreadyConnectedConsumer() {
         consumer.connect();
-        String input = "회원";
+        String input = "1";
 
         assertThatThrownBy(() -> prepare(input))
                 .isInstanceOf(IllegalArgumentException.class)
@@ -70,7 +70,7 @@ class ConnectConsumerTest {
     @Test
     @DisplayName("입력값에 공백이 존재하면 에러를 발생시킨다.")
     void testContainBlankInput() {
-        String input = "  회원";
+        String input = "  1";
 
         assertThatThrownBy(() -> prepare(input))
                 .isInstanceOf(IllegalArgumentException.class)
@@ -81,7 +81,7 @@ class ConnectConsumerTest {
     @DisplayName("관리자가 접속 안 한 상태에서 회원 접속 시 에러를 발생시킨다.")
     void testIsConnectManager() {
 
-        String input = "회원";
+        String input = "1";
 
         assertThatThrownBy(() -> prepare(input))
                 .isInstanceOf(IllegalArgumentException.class)
