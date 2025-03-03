@@ -2,7 +2,6 @@ package manager.process;
 
 import io.Input;
 import manager.Manager;
-import manager.validator.ManagerErrorMessage;
 import manager.validator.ManagerValidator;
 import root.RootDto;
 import root.RootProcess;
@@ -26,7 +25,7 @@ public class CreateManager implements RootProcess {
             Manager manager = rootDto.manager();
             manager.create(name, money);
         } catch (IllegalArgumentException e) {
-            System.out.println(ManagerErrorMessage.NOT_FIT_FORMAT_CREATE_MANAGER.getMessage());
+            System.out.println(e.getMessage());
         }
     }
 
