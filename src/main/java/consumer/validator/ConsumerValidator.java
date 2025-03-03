@@ -1,6 +1,8 @@
 package consumer.validator;
 
 import consumer.Consumer;
+import manager.Manager;
+import root.RootDto;
 
 
 public class ConsumerValidator {
@@ -11,9 +13,16 @@ public class ConsumerValidator {
         validateIsNegative(nameAndMoney);
     }
 
-    public static void connectValidation(String name, Consumer consumer) {
-        validName(name, consumer);
-        validConnection(consumer);
+    public static void connectValidation(String name, RootDto rootDto) {
+        validName(name, rootDto.consumer());
+        validConnection(rootDto.consumer());
+        isConnectedManager(rootDto.manager());
+    }
+
+    private static void isConnectedManager(Manager manager) {
+        if (!manager.isConnect()) {
+            throw new IllegalArgumentException(ConsumerErrorMessage.NOT_CONNECTED_MANAGER.getMessage());
+        }
     }
 
     private static void validName(String name, Consumer consumer) {

@@ -59,7 +59,6 @@ class ConnectManagerTest {
     @Test
     @DisplayName("입력값에 공백이 존재하면 에러를 발생시킨다.")
     void testContainBlankInput() {
-        manager.connect();
         String input = "  관리자1";
 
         assertThatThrownBy(() -> prepare(input))
