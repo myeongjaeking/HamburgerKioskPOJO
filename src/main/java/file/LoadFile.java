@@ -15,7 +15,14 @@ public class LoadFile {
         return products;
     }
 
-    public void readFile() throws FileNotFoundException {
+    public void checkFileExists() throws FileNotFoundException {
+        File file = loadFile();
+        if (!file.exists()) {
+            throw new FileNotFoundException(FileErrorMessage.NOT_FOUND_FILE.getMessage());
+        }
+    }
+
+    public void readFile() {
         File file = loadFile();
 
         try {
@@ -29,12 +36,12 @@ public class LoadFile {
             }
             reader.close();
         } catch (IOException e) {
-            throw new FileNotFoundException(FileErrorMessage.NOT_FOUND_FILE.getMessage());
+            System.out.println(FileErrorMessage.NOT_FOUND_FILE.getMessage());
         }
     }
 
-    private File loadFile() {
-        final String FILEPATH = "src/main/resources/products.md";
+    public File loadFile() {
+        final String FILEPATH = "src/main/resources/products2.md";
         return new File(FILEPATH);
     }
 

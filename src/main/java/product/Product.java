@@ -2,11 +2,11 @@ package product;
 
 public class Product {
 
-    private String name;
-    private int price;
+    private final String name;
+    private final int price;
     private int quantity;
-    private String description;
-    private String category;
+    private final String description;
+    private final String category;
 
     public Product(String name, int price, int quantity, String description, String category) {
         this.name = name;
@@ -16,9 +16,29 @@ public class Product {
         this.category = category;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public int getPrice() {
+        return price;
+    }
+
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public void updateQuantity(int quantity) {
+        this.quantity -= quantity;
+    }
+
     @Override
     public String toString() {
-        return "-" + name + ", " + price + "원, " + quantity + "개, " + description;
+        String stringQuantity = "품절, ";
+        if (quantity > 0) {
+            stringQuantity = quantity + "개, ";
+        }
+        return "-" + name + ", " + price + "원, " + stringQuantity + description;
     }
 
 }

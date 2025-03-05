@@ -15,6 +15,10 @@ public class Consumer {
         this.isConnect = false;
     }
 
+    public void buy(int money) {
+        this.money -= money;
+    }
+
     public void connect() {
         this.isConnect = true;
     }

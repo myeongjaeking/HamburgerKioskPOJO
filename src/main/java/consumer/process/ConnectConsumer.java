@@ -3,11 +3,8 @@ package consumer.process;
 import consumer.Consumer;
 import consumer.validator.ConsumerValidator;
 import io.Input;
-import order.Order;
 import root.RootDto;
 import root.RootProcess;
-
-import java.io.FileNotFoundException;
 
 public class ConnectConsumer implements RootProcess {
 
@@ -22,8 +19,7 @@ public class ConnectConsumer implements RootProcess {
             ConsumerValidator.connectValidation(input, rootDto);
 
             consumer.connect();
-            new Order(rootDto);
-        } catch (IllegalArgumentException | FileNotFoundException e) {
+        } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
         }
     }

@@ -1,0 +1,46 @@
+package product.validator;
+
+import consumer.Consumer;
+import product.Product;
+
+public class ProductValidator {
+
+    public static void validateConsumerInput(String orderMenu) {
+        validateStartWith(orderMenu);
+        validateQuantity(orderMenu);
+    }
+
+    public static void validateQuantity(Product product, int quantity) {
+        if (product.getQuantity() < quantity) {
+            throw new IllegalArgumentException(ProductErrorMessage.OUT_OF_PRODUCT.getMessage());
+        }
+    }
+
+    public static void validateConsumerMoney(Consumer consumer, int amount) {
+        if (consumer.getMoney() < amount) {
+            throw new IllegalArgumentException(ProductErrorMessage.INSUFFICIENT_BALANCE.getMessage());
+        }
+    }
+
+    private static void validateStartWith(String orderMenu) {
+        if (!orderMenu.startsWith("[") || !orderMenu.endsWith("]")) {
+            throw new IllegalArgumentException(ProductErrorMessage.NOT_GOOD_INPUT.getMessage());
+        }
+    }
+
+    private static void validateQuantity(String orderMenu) {
+        String menu = orderMenu.replace("[", "").replace("]", "");
+        String[] menuNameAndQuantity = menu.split("\\-");
+
+        if (menuNameAndQuantity.length < 2) {
+            throw new IllegalArgumentException(ProductErrorMessage.NOT_GOOD_INPUT.getMessage());
+        }
+
+        try {
+            Integer.parseInt(menuNameAndQuantity[1]);
+        } catch (IllegalArgumentException e) {
+            throw new IllegalArgumentException(ProductErrorMessage.NOT_GOOD_INPUT.getMessage());
+        }
+    }
+
+}

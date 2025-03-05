@@ -16,6 +16,10 @@ public class Manager {
         this.isConnect = false;
     }
 
+    public void sell(int money) {
+        this.money += money;
+    }
+
     public void connect() {
         this.isConnect = true;
     }
