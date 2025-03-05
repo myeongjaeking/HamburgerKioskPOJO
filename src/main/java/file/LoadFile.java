@@ -41,8 +41,32 @@ public class LoadFile {
     }
 
     public File loadFile() {
-        final String FILEPATH = "src/main/resources/products2.md";
+        final String FILEPATH = "src/main/resources/products.md";
         return new File(FILEPATH);
+    }
+
+    public void writeFile(List<Product> products) {
+        File file = loadFile();
+
+        try {
+            FileWriter fileWriter = new FileWriter(file);
+            fileWriter.write("name, price, quantity, description, category\n");
+
+            for (Product product : products) {
+                String line = String.format(
+                        "%s,%d,%d,\"%s\",%s\n",
+                        product.getName(),
+                        product.getPrice(),
+                        product.getQuantity(),
+                        product.getDescription(),
+                        product.getCategory()
+                );
+                fileWriter.write(line);
+            }
+            fileWriter.close();
+        }catch (IOException e){
+            System.out.println(FileErrorMessage.NOT_FOUND_FILE.getMessage());
+        }
     }
 
     private void saveProducts(String line) {

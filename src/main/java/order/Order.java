@@ -42,10 +42,8 @@ public class Order {
     }
 
     private void showMenu() {
-        if (products == null) {
-            loadFile.readFile();
-            products = loadFile.getProducts();
-        }
+        loadFile.readFile();
+        products = loadFile.getProducts();
         intro();
 
         for (Product product : products) {
@@ -65,6 +63,8 @@ public class Order {
                 selectMenu(input);
                 orderCalculation();
                 receipt();
+                loadFile.writeFile(products);
+                products.clear();
                 if (!orderAdditional()) {
                     break;
                 }
@@ -115,7 +115,7 @@ public class Order {
     }
 
     private void selectMenu(String input) {
-        String[] separatedOrderMenu = input.split("\\],\\[");
+        String[] separatedOrderMenu = input.split(",");
         for (String orderMenu : separatedOrderMenu) {
             ProductValidator.validateConsumerInput(orderMenu);
 

@@ -28,6 +28,14 @@ public class Product {
         return quantity;
     }
 
+    public String getDescription() {
+        return description;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
     public void updateQuantity(int quantity) {
         this.quantity -= quantity;
     }
