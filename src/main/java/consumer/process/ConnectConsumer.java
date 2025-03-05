@@ -23,4 +23,5 @@ public class ConnectConsumer implements RootProcess {
             System.out.println(e.getMessage());
         }
     }
+
 }

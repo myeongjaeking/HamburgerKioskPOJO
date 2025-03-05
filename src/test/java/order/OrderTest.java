@@ -46,7 +46,7 @@ class OrderTest {
 
     @Test
     @DisplayName("정상적인 입력이면 주문이 성공한다.")
-    void testSelectMenu() throws FileNotFoundException{
+    void testSelectMenu() {
         String input = "[치킨버거-2],[불고기버거세트-1]\n";
         prepareInput(input);
 

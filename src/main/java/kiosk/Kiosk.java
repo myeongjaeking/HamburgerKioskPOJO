@@ -34,7 +34,7 @@ public class Kiosk {
                 if (!selectKiosk(input)) {
                     break;
                 }
-                canStartOrder();
+                startOrder();
             }
         } catch (FileNotFoundException e) {
             System.out.println(FileErrorMessage.NOT_FOUND_FILE.getMessage());
@@ -67,7 +67,7 @@ public class Kiosk {
         return true;
     }
 
-    private void canStartOrder() {
+    private void startOrder() {
         if (consumer.isConnect() && manager.isConnect()) {
             Order.getInstance(rootDto).start();
         }

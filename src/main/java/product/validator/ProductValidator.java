@@ -1,6 +1,5 @@
 package product.validator;
 
-import consumer.Consumer;
 import product.Product;
 
 public class ProductValidator {
@@ -13,12 +12,6 @@ public class ProductValidator {
     public static void validateQuantity(Product product, int quantity) {
         if (product.getQuantity() < quantity) {
             throw new IllegalArgumentException(ProductErrorMessage.OUT_OF_PRODUCT.getMessage());
-        }
-    }
-
-    public static void validateConsumerMoney(Consumer consumer, int amount) {
-        if (consumer.getMoney() < amount) {
-            throw new IllegalArgumentException(ProductErrorMessage.INSUFFICIENT_BALANCE.getMessage());
         }
     }
 

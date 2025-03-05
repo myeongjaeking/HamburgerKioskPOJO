@@ -7,6 +7,8 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
+import static util.Separator.REST;
+
 public class LoadFile {
 
     private final List<Product> products = new ArrayList<>();
@@ -70,7 +72,7 @@ public class LoadFile {
     }
 
     private void saveProducts(String line) {
-        String[] menuArr = line.split(",");
+        String[] menuArr = line.split(REST.getSign());
         String name = menuArr[0];
         int price = Integer.parseInt(menuArr[1]);
         int quantity = 0;
