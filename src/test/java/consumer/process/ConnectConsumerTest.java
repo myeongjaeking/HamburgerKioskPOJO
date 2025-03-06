@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import root.RootDto;
+import root.ManagerConsumerDto;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
 
@@ -16,7 +16,7 @@ class ConnectConsumerTest {
 
     private Consumer consumer;
     private Manager manager;
-    private RootDto rootDto;
+    private ManagerConsumerDto managerConsumerDto;
 
     @BeforeEach
     void setUp() {
@@ -26,11 +26,11 @@ class ConnectConsumerTest {
         manager = new Manager();
         manager.create("관리자1", 10000);
 
-        rootDto = new RootDto(manager, consumer);
+        managerConsumerDto = new ManagerConsumerDto(manager, consumer);
     }
 
     private void prepare(String input) {
-        ConsumerValidator.connectValidation(input, rootDto);
+        ConsumerValidator.connectValidation(input, managerConsumerDto);
         consumer.connect();
     }
 

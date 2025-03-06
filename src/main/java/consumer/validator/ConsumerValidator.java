@@ -2,7 +2,7 @@ package consumer.validator;
 
 import consumer.Consumer;
 import manager.Manager;
-import root.RootDto;
+import root.ManagerConsumerDto;
 
 
 public class ConsumerValidator {
@@ -13,11 +13,11 @@ public class ConsumerValidator {
         validateIsNegative(idAndMoney);
     }
 
-    public static void connectValidation(String id, RootDto rootDto) {
+    public static void connectValidation(String id, ManagerConsumerDto managerConsumerDto) {
         validateConnectFormat(id);
-        validId(id, rootDto.consumer());
-        validConnection(rootDto.consumer());
-        isConnectedManager(rootDto.manager());
+        validId(id, managerConsumerDto.consumer());
+        validConnection(managerConsumerDto.consumer());
+        isConnectedManager(managerConsumerDto.manager());
     }
 
     private static void isConnectedManager(Manager manager) {

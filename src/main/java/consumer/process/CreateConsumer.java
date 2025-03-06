@@ -3,14 +3,14 @@ package consumer.process;
 import consumer.Consumer;
 import consumer.validator.ConsumerValidator;
 import io.Input;
-import root.RootDto;
-import root.RootProcess;
+import root.ManagerConsumerDto;
+import root.OptionProcess;
 import util.Separator;
 
-public class CreateConsumer implements RootProcess {
+public class CreateConsumer implements OptionProcess {
 
     @Override
-    public void start(RootDto rootDto) {
+    public void start(ManagerConsumerDto managerConsumerDto) {
         System.out.println("회원의 정보를 입력해주세요 ex) 1, 30000");
         String input = Input.nextLine();
 
@@ -22,7 +22,7 @@ public class CreateConsumer implements RootProcess {
             int id = Integer.parseInt(idAndMoney[0].trim());
             int money = Integer.parseInt(idAndMoney[1].trim());
 
-            Consumer consumer = rootDto.consumer();
+            Consumer consumer = managerConsumerDto.consumer();
             consumer.create(id, money);
         } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());

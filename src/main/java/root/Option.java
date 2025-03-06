@@ -5,7 +5,7 @@ import consumer.process.CreateConsumer;
 import manager.process.ConnectManager;
 import manager.process.CreateManager;
 
-public enum Root {
+public enum Option {
 
     EXIT("0. 종료", null),
     CREATE_MANGER("1. 관리자 생성", new CreateManager()),
@@ -14,19 +14,19 @@ public enum Root {
     CONNECT_CONSUMER("4. 회원 접속", new ConnectConsumer());
 
     private final String root;
-    private final RootProcess rootProcess;
+    private final OptionProcess optionProcess;
 
-    Root(String root, RootProcess rootProcess) {
+    Option(String root, OptionProcess optionProcess) {
         this.root = root;
-        this.rootProcess = rootProcess;
+        this.optionProcess = optionProcess;
     }
 
     public String getRoot() {
         return root;
     }
 
-    public void process(RootDto rootDto) {
-        rootProcess.start(rootDto);
+    public void process(ManagerConsumerDto managerConsumerDto) {
+        optionProcess.start(managerConsumerDto);
     }
 
 }

@@ -3,18 +3,18 @@ package manager.process;
 import io.Input;
 import manager.Manager;
 import manager.validator.ManagerValidator;
-import root.RootDto;
-import root.RootProcess;
+import root.ManagerConsumerDto;
+import root.OptionProcess;
 
-public class ConnectManager implements RootProcess {
+public class ConnectManager implements OptionProcess {
 
     @Override
-    public void start(RootDto rootDto) {
+    public void start(ManagerConsumerDto managerConsumerDto) {
         System.out.println("접속할 관리자 성명을 입력하세요");
         String input = Input.nextLine();
 
         try {
-            Manager manager = rootDto.manager();
+            Manager manager = managerConsumerDto.manager();
 
             ManagerValidator.connectValidation(input, manager);
 

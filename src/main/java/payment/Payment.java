@@ -3,9 +3,7 @@ package payment;
 import order.Cart;
 import payment.validator.PaymentValidator;
 import product.Product;
-import product.validator.ProductErrorMessage;
-import product.validator.ProductValidator;
-import root.RootDto;
+import root.ManagerConsumerDto;
 
 import java.util.List;
 
@@ -14,19 +12,19 @@ public class Payment {
     private static Payment PAYMENT;
     private final List<Cart> carts;
     private final List<Product> products;
-    private final RootDto rootDto;
-    int amount = 0;
-    int count = 0;
+    private final ManagerConsumerDto managerConsumerDto;
+    private int amount = 0;
+    private int count = 0;
 
-    private Payment(List<Cart> carts, List<Product> products, RootDto rootDto) {
+    private Payment(List<Cart> carts, List<Product> products, ManagerConsumerDto managerConsumerDto) {
         this.carts = carts;
         this.products = products;
-        this.rootDto = rootDto;
+        this.managerConsumerDto = managerConsumerDto;
     }
 
-    public static Payment getInstance(List<Cart> carts, List<Product> products, RootDto rootDto) {
+    public static Payment getInstance(List<Cart> carts, List<Product> products, ManagerConsumerDto managerConsumerDto) {
         if (PAYMENT == null) {
-            PAYMENT = new Payment(carts, products, rootDto);
+            PAYMENT = new Payment(carts, products, managerConsumerDto);
         }
 
         return PAYMENT;
@@ -41,22 +39,23 @@ public class Payment {
 
     private void pay() {
         for (Cart cart : carts) {
-            Product product = products.stream().filter(findProduct -> findProduct.getName().equals(cart.getName())).findFirst()
-                    .orElseThrow(() -> new IllegalArgumentException(ProductErrorMessage.NOT_EXIST_PRODUCT.getMessage()));
+            Product product = products.stream()
+                    .filter(findProduct -> findProduct.getName().equals(cart.getName()))
+                    .findFirst()
+                    .get();
 
-            ProductValidator.validateQuantity(product, cart.getQuantity());
             product.updateQuantity(cart.getQuantity());
             cart.productPrice(product.getPrice() * cart.getQuantity());
 
-            update(product.getPrice() * cart.getQuantity(), cart.getQuantity());
+            totalMoney(product.getPrice() * cart.getQuantity(), cart.getQuantity());
         }
 
-        PaymentValidator.validateConsumerMoney(rootDto.consumer(), amount);
-        rootDto.manager().sell(amount);
-        rootDto.consumer().buy(amount);
+        PaymentValidator.validateConsumerMoney(managerConsumerDto.consumer(), amount);
+        managerConsumerDto.manager().sell(amount);
+        managerConsumerDto.consumer().buy(amount);
     }
 
-    private void update(int amount, int count) {
+    private void totalMoney(int amount, int count) {
         this.amount += amount;
         this.count += count;
     }
@@ -72,8 +71,8 @@ public class Payment {
         System.out.println("=====================");
         System.out.println("총구매액  " + count + "\t" + amount);
         System.out.println("=====================");
-        System.out.println("판매자 : " + rootDto.manager().getName() + ", " + rootDto.manager().getMoney());
-        System.out.println("구매자 : " + rootDto.consumer().getId() + ", " + rootDto.consumer().getMoney());
+        System.out.println("판매자 : " + managerConsumerDto.manager().getName() + ", " + managerConsumerDto.manager().getMoney());
+        System.out.println("구매자 : " + managerConsumerDto.consumer().getId() + ", " + managerConsumerDto.consumer().getMoney());
     }
 
 }

@@ -7,6 +7,7 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
+import static util.Separator.BLANK;
 import static util.Separator.REST;
 
 public class LoadFile {
@@ -42,7 +43,7 @@ public class LoadFile {
         }
     }
 
-    public File loadFile() {
+    private File loadFile() {
         final String FILEPATH = "src/main/resources/products.md";
         return new File(FILEPATH);
     }
@@ -82,7 +83,7 @@ public class LoadFile {
         } catch (NumberFormatException ignored) {
 
         }
-        String description = menuArr[3].replaceAll("^\"|\"$", "");
+        String description = menuArr[3].replaceAll("^\"|\"$", BLANK.getSign());
         String category = menuArr[4];
 
         products.add(new Product(name, price, quantity, description, category));

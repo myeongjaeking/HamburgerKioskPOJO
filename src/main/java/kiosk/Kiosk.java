@@ -8,8 +8,8 @@ import manager.Manager;
 
 import kiosk.validator.KioskErrorMessage;
 import order.Order;
-import root.Root;
-import root.RootDto;
+import root.Option;
+import root.ManagerConsumerDto;
 
 import java.io.FileNotFoundException;
 
@@ -18,7 +18,7 @@ public class Kiosk {
     private final Manager manager = new Manager();
     private final Consumer consumer = new Consumer();
     private final LoadFile loadFile = new LoadFile();
-    private RootDto rootDto;
+    private ManagerConsumerDto managerConsumerDto;
 
     public Kiosk() {
     }
@@ -42,24 +42,24 @@ public class Kiosk {
     }
 
     private void showKiosk() {
-        Root[] values = Root.values();
+        Option[] options = Option.values();
 
-        for (Root value : values) {
-            System.out.println(value.getRoot());
+        for (Option option : options) {
+            System.out.println(option.getRoot());
         }
     }
 
     private boolean selectKiosk(String input) {
         try {
             int index = Integer.parseInt(input);
-            Root selectedRoot = Root.values()[index];
+            Option selectedOption = Option.values()[index];
 
-            if (selectedRoot == Root.EXIT) {
+            if (selectedOption == Option.EXIT) {
                 return false;
             }
 
-            rootDto = new RootDto(manager, consumer);
-            selectedRoot.process(rootDto);
+            managerConsumerDto = new ManagerConsumerDto(manager, consumer);
+            selectedOption.process(managerConsumerDto);
         } catch (ArrayIndexOutOfBoundsException | NumberFormatException e) {
             System.out.println(KioskErrorMessage.NOT_FIT_FORMAT_KIOSK.getMessage());
         }
@@ -69,7 +69,7 @@ public class Kiosk {
 
     private void startOrder() {
         if (consumer.isConnect() && manager.isConnect()) {
-            Order.getInstance(rootDto).start();
+            Order.getInstance(managerConsumerDto, loadFile).start();
         }
     }
 

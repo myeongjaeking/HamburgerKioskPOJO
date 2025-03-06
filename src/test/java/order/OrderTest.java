@@ -1,13 +1,14 @@
 package order;
 
 import consumer.Consumer;
+import file.LoadFile;
 import io.Input;
 import manager.Manager;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import root.RootDto;
+import root.ManagerConsumerDto;
 
 import java.io.ByteArrayInputStream;
 import java.io.FileNotFoundException;
@@ -18,10 +19,11 @@ class OrderTest {
     private final InputStream systemIn = System.in;
     private Consumer consumer;
     private Manager manager;
-    private RootDto rootDto;
+    private ManagerConsumerDto managerConsumerDto;
+    private LoadFile loadFile;
     private Order order;
 
-    private void prepareInput(String input){
+    private void prepareInput(String input) {
         System.setIn(new ByteArrayInputStream(input.getBytes()));
     }
 
@@ -33,8 +35,10 @@ class OrderTest {
         manager = new Manager();
         manager.create("관리자1", 10000);
 
-        rootDto = new RootDto(manager, consumer);
-        order = Order.getInstance(rootDto);
+        loadFile = new LoadFile();
+
+        managerConsumerDto = new ManagerConsumerDto(manager, consumer);
+        order = Order.getInstance(managerConsumerDto, loadFile);
     }
 
     @AfterEach
