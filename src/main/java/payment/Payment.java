@@ -4,6 +4,7 @@ import order.Cart;
 import payment.validator.PaymentValidator;
 import product.Product;
 import root.ManagerConsumerDto;
+import util.SetMenu;
 
 import java.util.List;
 
@@ -37,14 +38,23 @@ public class Payment {
         receipt();
     }
 
+    private Product findProduct(String menuName) {
+        return products.stream()
+                .filter(findProduct -> findProduct.getName().equals(menuName))
+                .findFirst()
+                .get();
+    }
+
     private void pay() {
         for (Cart cart : carts) {
-            Product product = products.stream()
-                    .filter(findProduct -> findProduct.getName().equals(cart.getName()))
-                    .findFirst()
-                    .get();
+            String menuName = cart.getName();
+            ;
 
+            Product product = findProduct(menuName);
+
+            updateSet(cart);
             product.updateQuantity(cart.getQuantity());
+
             cart.productPrice(product.getPrice() * cart.getQuantity());
 
             totalMoney(product.getPrice() * cart.getQuantity(), cart.getQuantity());
@@ -73,6 +83,27 @@ public class Payment {
         System.out.println("=====================");
         System.out.println("판매자 : " + managerConsumerDto.manager().getName() + ", " + managerConsumerDto.manager().getMoney());
         System.out.println("구매자 : " + managerConsumerDto.consumer().getId() + ", " + managerConsumerDto.consumer().getMoney());
+    }
+
+    private String extractSetName(String menuName) {
+        int index = menuName.indexOf("세트");
+        return menuName.substring(0, index);
+    }
+
+    private void updateProductQuantity(String menuName, int quantity) {
+        Product product = findProduct(menuName);
+        product.updateQuantity(quantity);
+    }
+
+    private void updateSet(Cart cart) {
+        if (cart.getName().contains(SetMenu.SET.getMenuName())) {
+            int quantity = cart.getQuantity();
+            String singleMenu = extractSetName(cart.getName());
+
+            updateProductQuantity(singleMenu, quantity);
+            updateProductQuantity(SetMenu.FRENCH_FRIES.getMenuName(), quantity);
+            updateProductQuantity(SetMenu.COLA.getMenuName(), quantity);
+        }
     }
 
 }

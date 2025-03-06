@@ -106,6 +106,7 @@ public class Order {
             String[] menuNameAndQuantity = menu.split(HYPHEN.getSign());
 
             String menuName = menuNameAndQuantity[0];
+
             int quantity = Integer.parseInt(menuNameAndQuantity[1]);
 
             ProductValidator.validateConsumerInput(orderMenu, menuName, quantity, products);
