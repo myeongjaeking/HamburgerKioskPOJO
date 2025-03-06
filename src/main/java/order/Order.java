@@ -2,10 +2,12 @@ package order;
 
 import file.LoadFile;
 import io.Input;
+import order.validator.OrderValidator;
 import payment.Payment;
 import product.Product;
 import product.validator.ProductValidator;
 import root.RootDto;
+import util.Separator;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -74,18 +76,25 @@ public class Order {
     }
 
     private boolean orderAdditional() {
-        System.out.println("감사합니다. 구매하고 싶은 다른 상품이 있나요? (Y/N)");
-        String input = Input.nextLine();
+        try{
+            System.out.println("감사합니다. 구매하고 싶은 다른 상품이 있나요? (Y/N)");
+            String input = Input.nextLine();
 
-        if (input.equals("Y")) {
-            start();
+            OrderValidator.validateAddition(input);
+
+            if (input.equals("Y")) {
+                start();
+            }
+        }catch (IllegalArgumentException e){
+            System.out.println(e.getMessage());
+            orderAdditional();
         }
 
         return false;
     }
 
     private void selectMenu(String input) {
-        String[] separatedOrderMenu = input.split(",");
+        String[] separatedOrderMenu = input.split(Separator.REST.getSign());
 
         for (String orderMenu : separatedOrderMenu) {
             ProductValidator.validateConsumerInput(orderMenu);

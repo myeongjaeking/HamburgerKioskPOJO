@@ -1,7 +1,7 @@
 package payment;
 
 import order.Cart;
-import payment.validator.PaymentVaildator;
+import payment.validator.PaymentValidator;
 import product.Product;
 import product.validator.ProductErrorMessage;
 import product.validator.ProductValidator;
@@ -51,7 +51,7 @@ public class Payment {
             update(product.getPrice() * cart.getQuantity(), cart.getQuantity());
         }
 
-        PaymentVaildator.validateConsumerMoney(rootDto.consumer(), amount);
+        PaymentValidator.validateConsumerMoney(rootDto.consumer(), amount);
         rootDto.manager().sell(amount);
         rootDto.consumer().buy(amount);
     }

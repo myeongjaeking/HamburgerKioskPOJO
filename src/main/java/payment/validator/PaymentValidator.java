@@ -2,7 +2,7 @@ package payment.validator;
 
 import consumer.Consumer;
 
-public class PaymentVaildator {
+public class PaymentValidator {
 
     public static void validateConsumerMoney(Consumer consumer, int amount) {
         if (consumer.getMoney() < amount) {
