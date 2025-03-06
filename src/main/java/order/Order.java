@@ -12,6 +12,8 @@ import util.Separator;
 import java.util.ArrayList;
 import java.util.List;
 
+import static util.Separator.*;
+
 public class Order {
 
     private static Order ORDER;
@@ -99,7 +101,8 @@ public class Order {
         for (String orderMenu : separatedOrderMenu) {
             ProductValidator.validateConsumerInput(orderMenu);
 
-            String menu = orderMenu.replace("[", "").replace("]", "");
+            String menu = orderMenu.replace(OPEN_SQUARE_BRACKETS.getSign(), BLANK.getSign())
+                    .replace(CLOSE_SQUARE_BRACKETS.getSign(), BLANK.getSign());
 
             String[] menuNameAndQuantity = menu.split("\\-");
 

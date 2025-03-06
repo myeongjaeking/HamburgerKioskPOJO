@@ -2,6 +2,8 @@ package product.validator;
 
 import product.Product;
 
+import static util.Separator.*;
+
 public class ProductValidator {
 
     public static void validateConsumerInput(String orderMenu) {
@@ -22,7 +24,8 @@ public class ProductValidator {
     }
 
     private static void validateQuantity(String orderMenu) {
-        String menu = orderMenu.replace("[", "").replace("]", "");
+        String menu = orderMenu.replace(OPEN_SQUARE_BRACKETS.getSign(), BLANK.getSign())
+                .replace(CLOSE_SQUARE_BRACKETS.getSign(), BLANK.getSign());
         String[] menuNameAndQuantity = menu.split("\\-");
 
         if (menuNameAndQuantity.length < 2) {

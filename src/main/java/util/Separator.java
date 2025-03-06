@@ -2,7 +2,10 @@ package util;
 
 public enum Separator {
 
-    REST(",");
+    REST(","),
+    OPEN_SQUARE_BRACKETS("["),
+    CLOSE_SQUARE_BRACKETS("]"),
+    BLANK("");
 
     private final String sign;
 
